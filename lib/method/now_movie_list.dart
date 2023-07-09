@@ -20,24 +20,26 @@ ListView NowMovieListView(AsyncSnapshot<List<MovieModel>> snapshot) {
           );
         },
         child: SizedBox(
-          width: 150,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                clipBehavior: Clip.hardEdge,
-                margin: const EdgeInsets.symmetric(horizontal: 6),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                width: 150,
-                height: 170,
-                child: Image.network(
-                  'https://image.tmdb.org/t/p/w500${snapshot.data![index].backdrop_path}',
-                  fit: BoxFit.cover,
-                  //borderradius
+              Hero(
+                tag: snapshot.data![index].id,
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  width: 150,
+                  height: 170,
+                  child: Image.network(
+                    'https://image.tmdb.org/t/p/w500${snapshot.data![index].backdrop_path}',
+                    fit: BoxFit.cover,
+                    //borderradius
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
