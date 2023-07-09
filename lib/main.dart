@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
         body: const SingleChildScrollView(
           padding: EdgeInsets.symmetric(
             horizontal: 20,
-            vertical: 20,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

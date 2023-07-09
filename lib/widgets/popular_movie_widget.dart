@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_chal/models/popular_movie_model.dart';
+import 'package:flutter_movie_chal/method/popular_movie_list.dart';
+import 'package:flutter_movie_chal/models/movie_model.dart';
 import 'package:flutter_movie_chal/services/api_service.dart';
 
 class PopularMovieWidget extends StatefulWidget {
@@ -12,8 +13,7 @@ class PopularMovieWidget extends StatefulWidget {
 }
 
 class _PopularMovieWidgetState extends State<PopularMovieWidget> {
-  final Future<List<PopularMovieModel>> popularMovies =
-      ApiService.getPopularMoive();
+  final Future<List<MovieModel>> movies = ApiService.getMovieList('popular');
 
   @override
   void initState() {
@@ -24,33 +24,10 @@ class _PopularMovieWidgetState extends State<PopularMovieWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: popularMovies,
+      future: movies,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return SingleChildScrollView(
-            controller: ScrollController(),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                for (var movie in snapshot.data ?? [])
-                  Container(
-                    clipBehavior: Clip.hardEdge,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    width: 300,
-                    height: 250,
-                    child: Image.network(
-                      'https://image.tmdb.org/t/p/w500${movie.backdrop_path}',
-                      fit: BoxFit.cover,
-                      //borderradius
-                    ),
-                  ),
-              ],
-            ),
-          );
+          return SizedBox(height: 200, child: popularMoiveList(snapshot));
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
