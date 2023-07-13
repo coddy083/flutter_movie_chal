@@ -15,9 +15,14 @@ class MovieDetail extends StatefulWidget {
 class _MovieDetailState extends State<MovieDetail> {
   late Future<MovieDetailModel> movieDetail;
 
+  void _fetchMovieDetail() async {
+    movieDetail = ApiService.getMovieDetail(widget.movie.id);
+  }
+
   @override
   void initState() {
-    movieDetail = ApiService.getMovieDetail(widget.movie.id);
+    // TODO: implement initState
+    _fetchMovieDetail();
     super.initState();
   }
 
